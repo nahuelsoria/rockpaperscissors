@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Piedra, papel o tijera</title>
+</head>
+<body>
+    
+</body>
+<script>
+    function getComputerChoice(){
+        let computerChoice = Math.floor(Math.random() * 3);
+        if(computerChoice === 0){
+            computerChoice = "rock"
+        }else if(computerChoice === 1){
+            computerChoice = "paper"
+        }else if(computerChoice === 2){
+            computerChoice = "scissors"
+        }
+        console.log("Computer Choice: ", computerChoice)
+        return computerChoice
+    }
+
+    getComputerChoice()
+    
+    function getHumanChoice(){
+        let humanChoice = prompt("Rock, Paper or Scissors?");
+        humanChoice = humanChoice.toLocaleLowerCase()
+        console.log("Human Choice: ", humanChoice)
+        return humanChoice
+    }
+
+    getHumanChoice()
+</script>
+</html>

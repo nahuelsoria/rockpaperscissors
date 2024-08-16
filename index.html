@@ -1,36 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Piedra, papel o tijera</title>
+    <link rel="stylesheet" href="./css/styles.css">
 </head>
+
 <body>
-    
+    <p id="computerChoice"></p>
+    <p id="humanChoice"></p>
 </body>
 <script>
-    function getComputerChoice(){
+    function getComputerChoice() {
         let computerChoice = Math.floor(Math.random() * 3);
-        if(computerChoice === 0){
+        if (computerChoice === 0) {
             computerChoice = "rock"
-        }else if(computerChoice === 1){
+        } else if (computerChoice === 1) {
             computerChoice = "paper"
-        }else if(computerChoice === 2){
+        } else if (computerChoice === 2) {
             computerChoice = "scissors"
         }
         console.log("Computer Choice: ", computerChoice)
         return computerChoice
     }
-
-    getComputerChoice()
-    
-    function getHumanChoice(){
+    function getHumanChoice() {
         let humanChoice = prompt("Rock, Paper or Scissors?");
-        humanChoice = humanChoice.toLocaleLowerCase()
-        console.log("Human Choice: ", humanChoice)
-        return humanChoice
-    }
+        humanChoice = humanChoice.toLocaleLowerCase();
 
-    getHumanChoice()
+        switch (humanChoice) {
+            case 'rock':
+            case 'paper':
+            case 'scissors':
+                console.log("Human Choice: ", humanChoice);
+                return humanChoice;
+            default:
+                alert('Datos ingresados incorrectos.');
+                return getHumanChoice(); // Puedes llamar recursivamente para pedir otro input
+        }
+    }
+    function playGame() {
+        let humanScore = 0;
+        let computerScore = 0;
+
+        function playRound(humanChoice, computerChoice) {
+            computerChoice = getComputerChoice();
+            humanChoice = getHumanChoice();
+            if (humanChoice === 'rock' && computerChoice === 'scissors' || humanChoice === 'scissors' && computerChoice === 'paper' || humanChoice === 'paper' && computerChoice === 'rock') {
+                humanScore++
+                alert(`You win! ${humanChoice} beats ${computerChoice}`)
+            } else if (humanChoice === computerChoice) {
+                alert(`DRAW`)
+                playRound(humanChoice, computerChoice)
+            } else {
+                computerScore++
+                alert(`You lose! ${computerChoice} beats ${humanChoice}`)
+            }
+        }
+        for (let round = 0; round < 5; round++) {
+            playRound(humanChoice, computerChoice);
+            console.log(humanScore, computerScore)
+        }
+        let humanChoiceElement = document.getElementById("humanChoice");
+        humanChoiceElement.textContent = "Human Choice: " + humanScore;
+        let computerChoiceElement = document.getElementById("computerChoice");
+        computerChoiceElement.textContent = "Computer Choice: " + computerScore;
+    }
+    playGame();
+
 </script>
+
 </html>
